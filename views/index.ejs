@@ -5,13 +5,16 @@
     <link rel="stylesheet" href="/stylesheets/style.css" />
   </head>
   <body>
-    <p>Welcome to <%= messages.forEach(message => { }); %></p>
+    <div class="nav">
+      <h1>Welcome to the message board!</h1>
+      <button>Create New Message</button>
+    </div>
 
     <% messages.forEach(message => { %>
-    <div class="message-post">
+    <div class="messagePost">
       <p><%= message.text %></p>
-      <p><%= message.user %></p>
-      <p><%= message.added %></p>
+      <p>User: <%= message.user %></p>
+      <p>Date added: <%= message.added %></p>
     </div>
     <%})%>
   </body>

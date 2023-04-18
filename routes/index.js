@@ -19,4 +19,20 @@ router.get("/", function (req, res, next) {
   res.render("index", { messages });
 });
 
+// GET new message form page
+router.get("/new", (req, res) => {
+  res.render("form");
+});
+
+// POST new message from submitted form
+router.post("/new", (req, res) => {
+  messages.push({
+    user: req.body.authorsName,
+    text: req.body.message,
+    added: new Date(),
+  });
+  console.log("here are the current messages:" + messages);
+  res.redirect("/");
+});
+
 module.exports = router;
