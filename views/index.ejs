@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <title>Mini Message Board</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <p>Welcome to <%= messages.forEach(message => { }); %></p>
+
+    <% messages.forEach(message => { %>
+    <div class="message-post">
+      <p><%= message.text %></p>
+      <p><%= message.user %></p>
+      <p><%= message.added %></p>
+    </div>
+    <%})%>
   </body>
 </html>
