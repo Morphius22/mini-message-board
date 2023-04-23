@@ -1,22 +1,19 @@
 var express = require("express");
 var router = express.Router();
-
-const messages = [
-  {
-    text: "Hi there!",
-    user: "Amando",
-    added: new Date(),
-  },
-  {
-    text: "Hello World!",
-    user: "Charles",
-    added: new Date(),
-  },
-];
+const Message = require("../models/messages");
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
-  res.render("index", { messages });
+  Message.find()
+    .sort({ added: -1 })
+    .limit(10)
+    .then((messages, err) => {
+      if (err) {
+        console.log(err);
+      }
+      res.render("index", { messages });
+      console.log(messages);
+    });
 });
 
 // GET new message form page
@@ -24,15 +21,24 @@ router.get("/new", (req, res) => {
   res.render("form");
 });
 
-// POST new message from submitted form
 router.post("/new", (req, res) => {
-  messages.push({
-    user: req.body.authorsName,
+  console.log(req.body);
+  const newMessage = new Message({
     text: req.body.message,
+    user: req.body.authorsName,
     added: new Date(),
   });
-  console.log("here are the current messages:" + messages);
-  res.redirect("/");
+
+  console.log(newMessage);
+
+  newMessage
+    .save()
+    .then((result) => {
+      res.redirect("/");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 
 module.exports = router;

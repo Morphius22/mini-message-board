@@ -1,0 +1,23 @@
+# fly.toml app configuration file generated for wild-sound-449 on 2023-04-22T08:24:10-07:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "wild-sound-449"
+primary_region = "sjc"
+
+[env]
+  PORT = "8080"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+
+[checks]
+  [checks.alive]
+    type = "tcp"
+    interval = "15s"
+    timeout = "2s"
+    grace_period = "5s"
